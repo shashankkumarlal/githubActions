@@ -1,0 +1,24 @@
+name: Test Composite Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    name: Test composite action
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run composite action
+        id: hello
+        uses: ./.github/actions/hello-world-composite-action
+        with:
+          who-to-greet: Shashank
+
+      - name: Get random number
+        run: echo "Random number is ${{ steps.hello.outputs.random-number }}"
